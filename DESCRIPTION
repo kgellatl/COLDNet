@@ -14,3 +14,4 @@ Depends:
 Imports:
 	igraph,
 	visNetwork
+RoxygenNote: 6.1.1
