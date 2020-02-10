@@ -14,6 +14,7 @@ Depends:
 	igraph,
 	visNetwork,
 	ggplot2,
-	ggraph
+	ggraph,
+	shiny
 Imports:
 RoxygenNote: 6.1.1

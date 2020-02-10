@@ -3,3 +3,4 @@
 export(build_network)
 export(build_visnetwork)
 export(extract_ggraph)
+export(shiny_net)
