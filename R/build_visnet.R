@@ -24,7 +24,9 @@ build_visnetwork <- function(input, graph_params = NA, edge_scale = 7) {
   }
 
   vis_obj <- visNetwork(nodes, edges, width = "100%", height = "1000px") %>%
-    visIgraphLayout("layout_with_fr")
+    visIgraphLayout("layout_with_fr") %>%
+    visOptions(highlightNearest = TRUE,
+               nodesIdSelection = TRUE)
 
   return(vis_obj)
 
