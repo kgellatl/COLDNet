@@ -56,3 +56,9 @@ head(plot_parameters)
 vis_obj <- build_visnetwork(test_net, graph_params = plot_parameters)
 vis_obj
 ```
+
+# Start interactive shiny plot
+
+```{r}
+shiny_net(vis_obj)
+```
