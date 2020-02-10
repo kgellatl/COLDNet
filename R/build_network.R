@@ -9,17 +9,17 @@
 #' @examples
 #'
 
-build_network <- function(input) {
-  gene_net <- graph_from_data_frame(Results_from_test_matrix_2000)
+build_network <- function(input, from, to, color, weight) {
+
+  input_net <- input[,c(from, to)]
+
+  gene_net <- graph_from_data_frame(input_net)
   gene_net <- as.undirected(gene_net)
 
-  E(gene_net)$rho <- Results_from_test_matrix_2000$rho
-  E(gene_net)$pval <- Results_from_test_matrix_2000$p_Bonferroni
+  E(gene_net)$edge_color <- input[, color]
+  E(gene_net)$edge_weight <- input[, weight]
 
-  gene_net
-  names(V(gene_net))
-  length(V(gene_net))
-  length(E(gene_net))
+  return(gene_net)
 
-  l <- layout_with_fr(gene_net)
+
 }

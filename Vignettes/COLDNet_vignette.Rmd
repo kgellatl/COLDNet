@@ -7,22 +7,38 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Build Network
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+# Load in Data
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+library(COLDNet)
+test_net_dat <- COLDNet:::test_net
 ```
 
-## Including Plots
+# Modify data to fit needs
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+test_net_dat$abs_cor <- abs(test_net_dat$rho)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Build igraph + calculate layout
+
+```{r}
+test_net <- build_network(input = test_net_dat, from = "Gene1", to = "Gene2", color = "rho", weight = "abs_cor")
+
+length(E(test_net))
+length(V(test_net))
+
+l <- layout_with_fr(test_net, weights = E(test_net)$edge_weight)
+
+ggraph(test_net, layout = l) +
+  geom_edge_link(aes(colour = edge_color, width = edge_weight)) +
+  geom_node_point() +
+  scale_edge_colour_gradient2(name = "Correlation") + 
+  scale_edge_width(name = "Absolute Correlation", range = c(0.5,2)) + 
+  geom_node_text(label = names(V(test_net)), repel = T, size = 2) +
+  theme_void()
+```
+
+# Build visNet
