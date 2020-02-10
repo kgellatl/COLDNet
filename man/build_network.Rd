@@ -4,7 +4,7 @@
 \alias{build_network}
 \title{build_network}
 \usage{
-build_network()
+build_network(input, from, to, color, weight)
 }
 \arguments{
 \item{input}{the input dataframe}
