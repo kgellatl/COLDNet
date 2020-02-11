@@ -11,27 +11,23 @@
 
 shiny_net <- function(input) {
 
+
+  ###########
+
   server <- function(input, output) {
-    output$network <- renderVisNetwork({vis_obj %>%
-
-        visEvents(click = "function(nodes){
-                Shiny.onInputChange('click', nodes.nodes[0]);
-                  ;}"
-        )
-
+    output$network <- renderVisNetwork({vis_obj
         })
-
-    output$shiny_return <- renderPrint({
-      visNetworkProxy("network") %>%
-        visNearestNodes(target = input$click, addDist = F)
-    })
 
   }
 
+  ###########
+
   ui <- fluidPage(
-    visNetworkOutput("network")#,
-    #visNetworkOutput("shiny_return")
+    visNetworkOutput("network")
+
   )
+
+  ###########
 
   shinyApp(ui = ui, server = server)
 
