@@ -9,13 +9,13 @@
 #' @examples
 #'
 
-shiny_net <- function(input) {
+shiny_net <- function(input_net) {
 
 
   ###########
 
   server <- function(input, output) {
-    output$network <- renderVisNetwork({vis_obj
+    output$network <- renderVisNetwork({input_net
         })
 
   }
