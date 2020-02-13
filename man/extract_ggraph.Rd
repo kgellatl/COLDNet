@@ -4,7 +4,7 @@
 \alias{extract_ggraph}
 \title{extract_ggraph}
 \usage{
-extract_ggraph(input)
+extract_ggraph(input_network, input_graph)
 }
 \arguments{
 \item{input}{the ggraph plot}
