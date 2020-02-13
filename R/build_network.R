@@ -11,9 +11,7 @@
 
 build_network <- function(input, from, to, color, weight) {
 
-  input_net <- input[,c(from, to)]
-
-  gene_net <- graph_from_data_frame(input_net)
+  gene_net <- graph_from_data_frame(input)
   gene_net <- as.undirected(gene_net)
 
   E(gene_net)$edge_color <- input[, color]
