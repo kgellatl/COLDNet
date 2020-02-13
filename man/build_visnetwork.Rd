@@ -4,10 +4,10 @@
 \alias{build_visnetwork}
 \title{build_visnetwork}
 \usage{
-build_visnetwork(input, graph_params = NA, edge_scale = 7)
+build_visnetwork(input_igraph, graph_params = NULL, edge_scale = 7)
 }
 \arguments{
-\item{input}{the ggraph plot}
+\item{input_igraph}{the ggraph plot}
 }
 \description{
 This function will build a visnetwork object
