@@ -25,7 +25,7 @@ make_visnet <- function(input_igraph, edge_scale = 7){
     visIgraphLayout("layout.norm", layoutMatrix = l) %>%
     # visIgraphLayout("layout_with_fr") %>%
     visExport() %>%
-    visOptions(height = "1000px", highlightNearest = TRUE,
+    visOptions(height = "750px", highlightNearest = TRUE,
                nodesIdSelection = list(enabled = TRUE))
   results_make_vis <- vector(mode = "list", length = 3)
   results_make_vis[[1]] <- vis_obj

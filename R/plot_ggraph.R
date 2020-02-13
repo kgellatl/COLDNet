@@ -34,7 +34,7 @@ plot_ggraph <- function(input, color, width, col_lab = NULL, width_lab = NULL, s
   if(scale == "continuous"){
     g <- g + scale_edge_colour_gradient(name = col_lab, low = "blue", high = "red")
   }
-  g <- g + scale_edge_width(name = width_lab, range = c(0.5,3))
+  g <- g + scale_edge_width(name = width_lab, range = c(0.3,5))
     g <- g + geom_node_text(label = names(V(input)), size = 2)
     g <- g + theme_void()
 
