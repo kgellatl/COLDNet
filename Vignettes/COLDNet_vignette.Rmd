@@ -55,4 +55,9 @@ head(plot_parameters)
 
 ```{r}
 build_visnetwork(test_net, graph_params = plot_parameters)
+
+## Changes!
+# Color
+# Zoom in functionality
+# Lost columns when making graph from dataframe???
 ```
