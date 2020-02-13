@@ -40,7 +40,7 @@ build_visnetwork <- function(input_igraph, graph_params = NULL, edge_scale = 7) 
   #######################################################
 
   ui = fluidPage(
-
+    # https://stackoverflow.com/questions/25340847/control-the-height-in-fluidrow-in-r-shiny
     fluidRow(
       column(8, visNetworkOutput("network")),
       column(4, visNetworkOutput("sub_net"))),
