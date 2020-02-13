@@ -17,16 +17,33 @@ build_visnetwork <- function(input_igraph) {
   nodes <- fun1_return[[3]]
   #######################################################
 
-  ui = fluidPage(
-    # https://stackoverflow.com/questions/25340847/control-the-height-in-fluidrow-in-r-shiny
+  ##### Test #####
+  ui <- shinyUI(fluidPage(
     fluidRow(
-      column(8, visNetworkOutput("network")),
-      column(4, visNetworkOutput("sub_net"))),
-    fluidRow(
-      column(2, actionButton("gosel", "Make Subplot!")),
-      column(10, dataTableOutput("data_table")))
+      column(width = 8,
+             fluidRow(visNetworkOutput("network"), style = "height:500px")),
+      column(width = 4,
+             fluidRow(actionButton("gosel", "Make Subplot!"), style = "height:50px"),
+             fluidRow(visNetworkOutput("sub_net"), style = "height:450px"))),
+    column(width = 12,
+           fluidRow(dataTableOutput("data_table"), style = "height:250px"))
+  ))
+  # server <- function(input, output) {}
+  # shinyApp(ui, server)
+  ##### Test #####
 
-  )
+
+
+  # ui = fluidPage(
+  #   # https://stackoverflow.com/questions/25340847/control-the-height-in-fluidrow-in-r-shiny
+  #   fluidRow(
+  #     column(8, visNetworkOutput("network")),
+  #     column(4, visNetworkOutput("sub_net"))),
+  #   fluidRow(
+  #     column(2, actionButton("gosel", "Make Subplot!")),
+  #     column(10, dataTableOutput("data_table")))
+  #
+  # )
 
   #######################################################
   server <- function(input, output, session) {
@@ -58,7 +75,9 @@ build_visnetwork <- function(input_igraph) {
 
       return_plot <- vis_obj2
       if(!is.null(return_plot)){
-        output$sub_net <- renderVisNetwork(return_plot)
+        output$sub_net <- renderVisNetwork({return_plot %>%
+          visOptions(height = "450px")
+          })
         output$data_table <- renderDataTable(new_edges)
       }
     })
