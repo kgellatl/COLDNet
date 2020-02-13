@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Load in Data
 
-```{r}
+```{r, results='hide'}
 library(COLDNet)
 test_net_dat <- COLDNet:::test_net
 ```
@@ -53,12 +53,5 @@ head(plot_parameters)
 # Build and Plot visNetwork
 
 ```{r}
-vis_object <- build_visnetwork(test_net, graph_params = plot_parameters)
-vis_object
-```
-
-# Start interactive shiny plot
-
-```{r}
-shiny_net(input_net = vis_object)
+build_visnetwork(test_net, graph_params = plot_parameters)
 ```
