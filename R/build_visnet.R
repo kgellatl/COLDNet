@@ -70,7 +70,6 @@ build_visnetwork <- function(input_igraph, graph_params = NULL, edge_scale = 7) 
 
       new_edges <- edges[c(ind1,ind2),]
       new_edges <- new_edges[,c("from", "to", "edge_weight", "width", "color")]
-      print(new_edges)
       new_nodes <- unique(c(new_edges$from, new_edges$to))
       new_nodes <- as.data.frame(new_nodes)
       new_nodes$id <- new_nodes$new_nodes
