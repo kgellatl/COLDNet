@@ -9,9 +9,9 @@
 #' @examples
 #'
 
-extract_ggraph <- function(input) {
+extract_ggraph <- function(input_network, input_graph) {
 
-  build <- ggplot_build(input)
+  build <- ggplot_build(input_graph)
   build_dat <- build$data[[1]]
 
   build_dat$group <- as.character(build_dat$group)
@@ -31,5 +31,7 @@ extract_ggraph <- function(input) {
   graph_parameters <- as.data.frame(graph_parameters)
   graph_parameters[,1] <- as.character(graph_parameters[,1])
   graph_parameters[,2] <- as.numeric(as.character(graph_parameters[,2]))
-  return(graph_parameters)
+  E(input_network)$color <- graph_parameters[,1]
+  E(input_network)$width <- graph_parameters[,2]
+  return(input_network)
 }
