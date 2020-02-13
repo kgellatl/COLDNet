@@ -9,7 +9,7 @@
 #' @examples
 #'
 
-build_network <- function(input, from, to) {
+build_network <- function(input) {
 
   gene_net <- graph_from_data_frame(input)
   l <- layout_nicely(gene_net, weights = E(gene_net)$edge_weight)
