@@ -43,7 +43,6 @@ test_net <- build_network(input = test_net_dat, from = "Gene1", to = "Gene2", co
 build_visnetwork(test_net)
 
 ## Changes!
-# Constant layout !!!
 # Zoom in functionality
 # Fix data loading issue??
 # New plot function standalone for other variables!!
