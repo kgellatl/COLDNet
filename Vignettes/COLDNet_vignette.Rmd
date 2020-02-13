@@ -20,12 +20,11 @@ test_net_dat <- COLDNet:::test_net
 # Modify data to fit needs
 
 ```{r}
-# Weights are non-negative, so take abs(rho)
-test_net_dat$abs_rho <- abs(test_net_dat$rho)
+# - log value for p value
 test_net_dat$log_p <- -log10(test_net_dat$p_Bonferroni)
 
 # required from and to columns!!!
-colnames(test_net_dat) <- c("from", "to", "rho", "p_unadjusted", "p_Bonferroni", "abs_rho", "log_p")
+colnames(test_net_dat)[c(1,2)] <- c("from", "to")
 ```
 
 # Build igraph + calculate layout
@@ -38,7 +37,7 @@ test_net <- build_network(input = test_net_dat)
 
 colnames(as_data_frame(test_net))
 
-test_net <- plot_ggraph(input = test_net, color = "rho", width = "log_p")
+test_net <- plot_ggraph(input = test_net, color = "rho", width = "log_p", scale = "diverge")
 ```
 
 # Build and Plot visNetwork
