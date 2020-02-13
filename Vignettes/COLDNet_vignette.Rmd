@@ -13,12 +13,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, results='hide'}
 library(COLDNet)
+# shiny::runApp(system.file("shiny", package = "visNetwork"))
 test_net_dat <- COLDNet:::test_net
 ```
 
 # Modify data to fit needs
 
 ```{r}
+# Weights are non-negative, so take abs(rho)
+
 test_net_dat$abs_cor <- abs(test_net_dat$rho)
 colnames(test_net_dat) <- c("from", "to", "rho", "p_unadjusted", "p_Bonferroni", "abs_cor")
 ```
@@ -26,38 +29,20 @@ colnames(test_net_dat) <- c("from", "to", "rho", "p_unadjusted", "p_Bonferroni",
 # Build igraph + calculate layout
 
 ```{r}
+# Takes in a dataframe, uses igraph to make a network, then ggraph to get plot parameters. 
+# All this data is stored in the igraph object
+
 test_net <- build_network(input = test_net_dat, from = "Gene1", to = "Gene2", color = "rho", weight = "abs_cor")
-
-length(E(test_net))
-length(V(test_net))
-
-l <- layout_with_fr(test_net, weights = E(test_net)$edge_weight)
-
-g <- ggraph(test_net, layout = l) +
-  geom_edge_link(aes(colour = edge_color, width = edge_weight)) +
-  geom_node_point() +
-  scale_edge_colour_gradient2(name = "Correlation") + 
-  scale_edge_width(name = "Absolute Correlation", range = c(0.5,3)) + 
-  geom_node_text(label = names(V(test_net)), size = 2) +
-  theme_void()
-
-plot(g)
-```
-
-# Extract plotting parameters from ggraph object
-
-```{r}
-plot_parameters <- extract_ggraph(g)
-head(plot_parameters)
 ```
 
 # Build and Plot visNetwork
 
 ```{r}
-build_visnetwork(test_net, graph_params = plot_parameters)
+# Takes in the igraph object and runs the shiny app!!
+
+build_visnetwork(test_net)
 
 ## Changes!
-# Color
+# Constant layout !!!
 # Zoom in functionality
-# Lost columns when making graph from dataframe???
 ```
