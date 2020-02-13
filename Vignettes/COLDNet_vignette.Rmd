@@ -20,6 +20,7 @@ test_net_dat <- COLDNet:::test_net
 
 ```{r}
 test_net_dat$abs_cor <- abs(test_net_dat$rho)
+colnames(test_net_dat) <- c("from", "to", "rho", "p_unadjusted", "p_Bonferroni", "abs_cor")
 ```
 
 # Build igraph + calculate layout
@@ -37,7 +38,7 @@ g <- ggraph(test_net, layout = l) +
   geom_node_point() +
   scale_edge_colour_gradient2(name = "Correlation") + 
   scale_edge_width(name = "Absolute Correlation", range = c(0.5,3)) + 
-  geom_node_text(label = names(V(test_net)), repel = T, size = 2) +
+  geom_node_text(label = names(V(test_net)), size = 2) +
   theme_void()
 
 plot(g)
