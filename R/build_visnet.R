@@ -42,11 +42,11 @@ build_visnetwork <- function(input_igraph, graph_params = NULL, edge_scale = 7) 
   ui = fluidPage(
 
     fluidRow(
-      column(7, visNetworkOutput("network")),
-      column(3, visNetworkOutput("sub_net"))),
+      column(8, visNetworkOutput("network")),
+      column(4, visNetworkOutput("sub_net"))),
     fluidRow(
-      column(1, actionButton("gosel", "Make Subplot!")),
-      column(11, dataTableOutput("data_table")))
+      column(2, actionButton("gosel", "Make Subplot!")),
+      column(10, dataTableOutput("data_table")))
 
   )
 
