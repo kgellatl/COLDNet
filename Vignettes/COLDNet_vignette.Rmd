@@ -21,9 +21,10 @@ test_net_dat <- COLDNet:::test_net
 
 ```{r}
 # Weights are non-negative, so take abs(rho)
+test_net_dat$abs_rho <- abs(test_net_dat$rho)
 
-test_net_dat$abs_cor <- abs(test_net_dat$rho)
-colnames(test_net_dat) <- c("from", "to", "rho", "p_unadjusted", "p_Bonferroni", "abs_cor")
+# required from and to columns!!!
+colnames(test_net_dat) <- c("from", "to", "rho", "p_unadjusted", "p_Bonferroni", "abs_rho")
 ```
 
 # Build igraph + calculate layout
@@ -32,7 +33,11 @@ colnames(test_net_dat) <- c("from", "to", "rho", "p_unadjusted", "p_Bonferroni",
 # Takes in a dataframe, uses igraph to make a network, then ggraph to get plot parameters. 
 # All this data is stored in the igraph object
 
-test_net <- build_network(input = test_net_dat, from = "Gene1", to = "Gene2", color = "rho", weight = "abs_cor")
+test_net <- build_network(input = test_net_dat)
+
+colnames(as_data_frame(test_net))
+
+test_net <- plot_ggraph(input = test_net, color = "rho", width = "abs_rho")
 ```
 
 # Build and Plot visNetwork
@@ -45,5 +50,5 @@ build_visnetwork(test_net)
 ## Changes!
 # Zoom in functionality
 # Fix data loading issue??
-# New plot function standalone for other variables!!
+# Function to change color and width in shiny!
 ```
