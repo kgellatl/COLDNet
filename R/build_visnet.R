@@ -25,7 +25,7 @@ build_visnetwork <- function(input_igraph, graph_params = NULL, edge_scale = 7) 
     vis_obj <- visNetwork(nodes, edges) %>%
       visIgraphLayout("layout_with_fr") %>%
       visExport() %>%
-      visOptions(highlightNearest = TRUE,
+      visOptions(height = "1000px", highlightNearest = TRUE,
                  nodesIdSelection = list(enabled = TRUE))
     results_make_vis <- vector(mode = "list", length = 3)
     results_make_vis[[1]] <- vis_obj
@@ -42,8 +42,8 @@ build_visnetwork <- function(input_igraph, graph_params = NULL, edge_scale = 7) 
   ui = fluidPage(
 
     fluidRow(
-      column(6, visNetworkOutput("network")),
-      column(4, visNetworkOutput("sub_net"))),
+      column(7, visNetworkOutput("network")),
+      column(3, visNetworkOutput("sub_net"))),
     fluidRow(
       column(1, actionButton("gosel", "Make Subplot!")),
       column(11, dataTableOutput("data_table")))
