@@ -17,7 +17,6 @@ build_visnetwork <- function(input_igraph) {
   nodes <- fun1_return[[3]]
   #######################################################
 
-  ##### Test #####
   ui <- shinyUI(fluidPage(
     fluidRow(
       column(width = 8,
@@ -28,11 +27,6 @@ build_visnetwork <- function(input_igraph) {
     column(width = 12,
            fluidRow(dataTableOutput("data_table"), style = "height:250px"))
   ))
-  # server <- function(input, output) {}
-  # shinyApp(ui, server)
-  ##### Test #####
-
-
 
   # ui = fluidPage(
   #   # https://stackoverflow.com/questions/25340847/control-the-height-in-fluidrow-in-r-shiny
