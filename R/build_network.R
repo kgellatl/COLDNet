@@ -16,7 +16,12 @@ build_network <- function(input, from, to, color, weight) {
   E(gene_net)$edge_color <- input[, color]
   E(gene_net)$edge_weight <- input[, weight]
 
-  l <- layout_with_fr(gene_net, weights = E(gene_net)$edge_weight)
+  l <- layout_nicely(gene_net, weights = E(gene_net)$edge_weight)
+
+
+  V(gene_net)$x_pos <- l[,1]
+  V(gene_net)$y_pos <- l[,2]
+
   g <- ggraph(gene_net, layout = l) +
     geom_edge_link(aes(colour = edge_color, width = edge_weight)) +
     geom_node_point() +

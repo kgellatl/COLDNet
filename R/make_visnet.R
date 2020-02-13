@@ -12,8 +12,9 @@
 make_visnet <- function(input_igraph, edge_scale = 7){
   test_net_data_frame <- as_data_frame(input_igraph)
   nodes <- igraph::as_data_frame(input_igraph, what = "vertices")
-  colnames(nodes) <- "id"
+  colnames(nodes)[1] <- "id"
   nodes$label <- nodes$id
+  l <- as.matrix(nodes[,c('x_pos', "y_pos")])
   edges <- igraph::as_data_frame(input_igraph, what = "edges")
   edges$width <-  test_net_data_frame$width*edge_scale
   edges$color <- test_net_data_frame$color
@@ -21,7 +22,8 @@ make_visnet <- function(input_igraph, edge_scale = 7){
     # Get same layout??
     # https://stackoverflow.com/questions/47630378/how-to-specify-nodes-positions-in-visnetwork-package-in-r
     #
-    visIgraphLayout("layout_with_fr") %>%
+    visIgraphLayout("layout.norm", layoutMatrix = l) %>%
+    # visIgraphLayout("layout_with_fr") %>%
     visExport() %>%
     visOptions(height = "1000px", highlightNearest = TRUE,
                nodesIdSelection = list(enabled = TRUE))
