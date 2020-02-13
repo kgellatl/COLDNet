@@ -12,11 +12,21 @@
 build_network <- function(input, from, to, color, weight) {
 
   gene_net <- graph_from_data_frame(input)
-  gene_net <- as.undirected(gene_net)
 
   E(gene_net)$edge_color <- input[, color]
   E(gene_net)$edge_weight <- input[, weight]
 
+  l <- layout_with_fr(gene_net, weights = E(gene_net)$edge_weight)
+  g <- ggraph(gene_net, layout = l) +
+    geom_edge_link(aes(colour = edge_color, width = edge_weight)) +
+    geom_node_point() +
+    scale_edge_colour_gradient2(name = "Correlation") +
+    scale_edge_width(name = "Absolute Correlation", range = c(0.5,3)) +
+    geom_node_text(label = names(V(gene_net)), size = 2) +
+    theme_void()
+  plot(g)
+
+  gene_net <- extract_ggraph(gene_net, g)
   return(gene_net)
 
 
