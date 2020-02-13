@@ -45,4 +45,6 @@ build_visnetwork(test_net)
 ## Changes!
 # Constant layout !!!
 # Zoom in functionality
+# Fix data loading issue??
+# New plot function standalone for other variables!!
 ```
