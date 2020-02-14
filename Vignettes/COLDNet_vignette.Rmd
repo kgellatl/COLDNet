@@ -30,14 +30,18 @@ colnames(test_net_dat)[c(1,2)] <- c("from", "to")
 # Build igraph + calculate layout
 
 ```{r}
-# Takes in a dataframe, uses igraph to make a network, then ggraph to get plot parameters. 
-# All this data is stored in the igraph object
-
+# Takes in a dataframe, uses igraph to make a network
 test_net <- build_network(input = test_net_dat)
+```
 
-colnames(as_data_frame(test_net))
+# Calculate graph color / width
 
-test_net <- plot_ggraph(input = test_net, color = "rho", width = "log_p", scale = "diverge")
+```{r}
+### SLOW, uses ggraph and creates a plot
+test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge")
+
+### FAST, no plotting occurs, but the color and width values are calculated
+test_net <- build_graph_params(input_igraph =  test_net, color = "rho", width = "log_p", scale = "diverge")
 ```
 
 # Build and Plot visNetwork
@@ -45,10 +49,14 @@ test_net <- plot_ggraph(input = test_net, color = "rho", width = "log_p", scale 
 ```{r}
 # Takes in the igraph object and runs the shiny app!!
 
-build_visnetwork(test_net)
+### SLOW, the entire network
+build_visnetwork(input_igraph = test_net)
+
+### FAST, only the nodes of interest
+build_vis_subnetwork(input_igraph = test_net)
 
 ## Changes!
 # Zoom in functionality
 # Fix data loading issue??
-# Function to change color and width in shiny!
+# Function to change color and width in shiny! run plot_ggraph and have it make new color_column each time
 ```
