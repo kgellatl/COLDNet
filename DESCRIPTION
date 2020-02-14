@@ -15,6 +15,7 @@ Depends:
 	visNetwork,
 	ggplot2,
 	ggraph,
-	shiny
+	shiny,
+	RColorBrewer
 Imports:
 RoxygenNote: 6.1.1
