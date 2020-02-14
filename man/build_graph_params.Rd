@@ -4,7 +4,8 @@
 \alias{build_graph_params}
 \title{plot_ggraph}
 \usage{
-build_graph_params(input_igraph, color, width, scale = "diverge")
+build_graph_params(input_igraph, color, width, scale = "diverge",
+  pal = NULL)
 }
 \arguments{
 \item{input_igraph}{the igraph object}
@@ -14,6 +15,8 @@ build_graph_params(input_igraph, color, width, scale = "diverge")
 \item{width}{width of edges}
 
 \item{scale}{"continuous" or "diverge"}
+
+\item{pal}{Rcolorbrewer pal name. Pick appropriately for diverging or continuous data}
 }
 \description{
 This function will assign color and width values to your igraph network
