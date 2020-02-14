@@ -21,6 +21,7 @@ test_net_dat <- COLDNet:::test_net
 
 ```{r}
 # - log value for p value
+test_net_dat$abs_rho <- abs(test_net_dat$rho)
 test_net_dat$log_p <- -log10(test_net_dat$p_Bonferroni)
 
 # required from and to columns!!!
@@ -38,10 +39,14 @@ test_net <- build_network(input = test_net_dat)
 
 ```{r}
 ### SLOW, uses ggraph and creates a plot. Take a long time due to rendering.
-test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge")
+test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", extract = T)
 
 ### FAST, no plotting occurs, but the color and width values are calculated and written to igraph.
+# Example 1 plot
+test_net <- build_graph_params(input_igraph =  test_net, color = "log_p", width = "abs_rho", scale = "continuous")
+# Example 2 plot
 test_net <- build_graph_params(input_igraph =  test_net, color = "rho", width = "log_p", scale = "diverge")
+
 ```
 
 # Build and Plot visNetwork
