@@ -37,10 +37,10 @@ test_net <- build_network(input = test_net_dat)
 # Calculate graph color / width
 
 ```{r}
-### SLOW, uses ggraph and creates a plot
+### SLOW, uses ggraph and creates a plot. Take a long time due to rendering.
 test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge")
 
-### FAST, no plotting occurs, but the color and width values are calculated
+### FAST, no plotting occurs, but the color and width values are calculated and written to igraph.
 test_net <- build_graph_params(input_igraph =  test_net, color = "rho", width = "log_p", scale = "diverge")
 ```
 
@@ -49,10 +49,10 @@ test_net <- build_graph_params(input_igraph =  test_net, color = "rho", width = 
 ```{r}
 # Takes in the igraph object and runs the shiny app!!
 
-### SLOW, the entire network
+### SLOW, the entire network is rendered at the start.
 build_visnetwork(input_igraph = test_net)
 
-### FAST, only the nodes of interest
+### FAST, only the nodes of interest are rendered. 
 build_vis_subnetwork(input_igraph = test_net)
 
 ## Changes!
