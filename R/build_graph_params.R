@@ -48,8 +48,8 @@ build_graph_params <- function(input_igraph, color, width, scale = "diverge", pa
       col_vec <- RColorBrewer::brewer.pal(11, pal)
     }
 
-    low_col <- col_vec[1:3]
-    high_col <- col_vec[9:11]
+    low_col <- col_vec[1:4]
+    high_col <- col_vec[8:11]
 
     ###
     rr <- range(neg_vals)
