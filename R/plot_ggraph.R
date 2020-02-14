@@ -1,15 +1,20 @@
-#' build_network
+#' plot_ggraph
 #'
-#' This function will build a igraph network from a dataframe and calculate the layout.
+#' This function will plot a ggraph object from an igraph object
 #'
-#' @param input the input dataframe
+#' @param input_igraph the igraph object
+#' @param color color of edges
+#' @param width width of edges
+#' @param col_lab label of color legend
+#' @param width_lab label of width legend
+#' @param scale "continuous" or "diverge"
 #' @export
 #' @details
 #' #
 #' @examples
 #'
 
-plot_ggraph <- function(input, color, width, col_lab = NULL, width_lab = NULL, scale = "diverge", extract = T){
+plot_ggraph <- function(input_igraph, color, width, col_lab = NULL, width_lab = NULL, scale = "diverge", extract = T){
 
   if(is.null(col_lab)){
     col_lab <- color
@@ -20,12 +25,12 @@ plot_ggraph <- function(input, color, width, col_lab = NULL, width_lab = NULL, s
   }
 
 
-  E(input)$edge_color <- as_data_frame(input)[,color]
-  E(input)$edge_weight <- as_data_frame(input)[,width]
+  E(input_igraph)$edge_color <- as_data_frame(input_igraph)[,color]
+  E(input_igraph)$edge_weight <- as_data_frame(input_igraph)[,width]
 
-  l <- matrix(c(V(input)$x_pos, V(input)$y_pos), ncol = 2)
+  l <- matrix(c(V(input_igraph)$x_pos, V(input_igraph)$y_pos), ncol = 2)
 
-  g <- ggraph(input, layout = l)
+  g <- ggraph(input_igraph, layout = l)
     g <-  g + geom_edge_link(aes(colour = edge_color, width = edge_weight))
     g <- g + geom_node_point()
     if(scale == "diverge"){
@@ -35,15 +40,15 @@ plot_ggraph <- function(input, color, width, col_lab = NULL, width_lab = NULL, s
     g <- g + scale_edge_colour_gradient(name = col_lab, low = "blue", high = "red")
   }
   g <- g + scale_edge_width(name = width_lab, range = c(0.3,5))
-    g <- g + geom_node_text(label = names(V(input)), size = 2)
+    g <- g + geom_node_text(label = names(V(input_igraph)), size = 2)
     g <- g + theme_void()
 
     plot(g)
 
     if(extract){
-      input <- extract_ggraph(input, g)
+      input_igraph <- extract_ggraph(input_igraph, g)
     }
 
-    return(input)
+    return(input_igraph)
 
 }

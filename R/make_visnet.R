@@ -1,8 +1,9 @@
 #' make_visnet
 #'
-#' This function will build a visnetwork object
+#' This function will build a visnetwork object from and igraph object
 #'
-#' @param input_igraph the ggraph plot
+#' @param input_igraph the igraph object
+#' @param edge_scale Default = 7. Scale factor for difference between igraph and visnet edge sizes.
 #' @export
 #' @details
 #' #

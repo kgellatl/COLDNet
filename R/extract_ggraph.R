@@ -2,16 +2,18 @@
 #'
 #' This function will extract plotting parameters from the ggraph object
 #'
-#' @param input the ggraph plot
+#' @param input_igraph the igraph object. ggraph parameters will be written in
+#' @param input_ggraph the ggraph object.
+
 #' @export
 #' @details
 #' #
 #' @examples
 #'
 
-extract_ggraph <- function(input_network, input_graph) {
+extract_ggraph <- function(input_igraph, input_ggraph) {
 
-  build <- ggplot_build(input_graph)
+  build <- ggplot_build(input_ggraph)
   build_dat <- build$data[[1]]
 
   build_dat$group <- as.character(build_dat$group)
@@ -31,7 +33,7 @@ extract_ggraph <- function(input_network, input_graph) {
   graph_parameters <- as.data.frame(graph_parameters)
   graph_parameters[,1] <- as.character(graph_parameters[,1])
   graph_parameters[,2] <- as.numeric(as.character(graph_parameters[,2]))
-  E(input_network)$color <- graph_parameters[,1]
-  E(input_network)$width <- graph_parameters[,2]
-  return(input_network)
+  E(input_igraph)$color <- graph_parameters[,1]
+  E(input_igraph)$width <- graph_parameters[,2]
+  return(input_igraph)
 }

@@ -1,8 +1,8 @@
 #' build_visnetwork
 #'
-#' This function will build a visnetwork object
+#' This function will build a visnetwork object from and igraph object.
 #'
-#' @param input_igraph the ggraph plot
+#' @param input_igraph the igraph object
 #' @export
 #' @details
 #' #
