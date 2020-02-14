@@ -69,20 +69,18 @@ build_graph_params <- function(input_igraph, color, width, scale = "diverge", pa
   }
 
   if(scale == "continuous"){
+
     if(is.null(pal)){
       col_vec <- RColorBrewer::brewer.pal(8, "YlOrRd")
     } else {
       col_vec <- RColorBrewer::brewer.pal(8, pal)
     }
-    f <- colorRamp(c(col_vec))
 
-    color_vals
+    f <- colorRamp(c(col_vec))
     rr <- range(color_vals)
     color_vals <- (color_vals-rr[1])/diff(rr)
     colors <- rgb(f(color_vals)/255)
-
   }
-
 
   E(input_igraph)$color <- colors
 
