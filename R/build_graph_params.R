@@ -32,28 +32,55 @@ build_graph_params <- function(input_igraph, color, width, scale = "diverge", pa
 
 
   color_vals <- as_data_frame(input_igraph)[,color]
-  rr <- range(color_vals)
-  color_vals <- (color_vals-rr[1])/diff(rr)
 
 
   if(scale == "diverge"){
+
+    col_vec <- rep("white", length(color_vals))
+    neg <- which(color_vals < 0)
+    pos <- which(color_vals > 0)
+    neg_vals <- color_vals[neg]
+    pos_vals <- color_vals[pos]
+
     if(is.null(pal)){
       col_vec <- RColorBrewer::brewer.pal(11, "RdBu")
     } else {
-      col_vec <- RColorBrewer::brewer.pal(8, pal)
+      col_vec <- RColorBrewer::brewer.pal(11, pal)
     }
+
+    low_col <- col_vec[1:3]
+    high_col <- col_vec[9:11]
+
+    ###
+    rr <- range(neg_vals)
+    neg_vals_scale <- (neg_vals-rr[1])/diff(rr)
+    f_low <- colorRamp(c(low_col))
+    colors_low <- rgb(f_low(neg_vals_scale)/255)
+    ###
+    rr <- range(pos_vals)
+    pos_vals_scale <- (pos_vals-rr[1])/diff(rr)
+    f_high <- colorRamp(c(high_col))
+    colors_high <- rgb(f_high(pos_vals_scale)/255)
+    ###
+
+    col_vec[neg] <- colors_low
+    col_vec[pos] <- colors_high
+    colors <- col_vec
   }
 
   if(scale == "continuous"){
     if(is.null(pal)){
       col_vec <- RColorBrewer::brewer.pal(8, "YlOrRd")
+      f <- colorRamp(c(col_vec))
+      colors <- rgb(f(color_vals)/255)
     } else {
       col_vec <- RColorBrewer::brewer.pal(8, pal)
+      f <- colorRamp(c(col_vec))
+      colors <- rgb(f(color_vals)/255)
     }
   }
 
-  f <- colorRamp(c(col_vec))
-  colors <- rgb(f(color_vals)/255)
+
   E(input_igraph)$color <- colors
 
   return(input_igraph)
