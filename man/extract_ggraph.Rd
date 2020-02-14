@@ -4,10 +4,12 @@
 \alias{extract_ggraph}
 \title{extract_ggraph}
 \usage{
-extract_ggraph(input_network, input_graph)
+extract_ggraph(input_igraph, input_ggraph)
 }
 \arguments{
-\item{input}{the ggraph plot}
+\item{input_igraph}{the igraph object. ggraph parameters will be written in}
+
+\item{input_ggraph}{the ggraph object.}
 }
 \description{
 This function will extract plotting parameters from the ggraph object

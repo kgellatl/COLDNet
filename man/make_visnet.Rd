@@ -7,10 +7,12 @@
 make_visnet(input_igraph, edge_scale = 7)
 }
 \arguments{
-\item{input_igraph}{the ggraph plot}
+\item{input_igraph}{the igraph object}
+
+\item{edge_scale}{Default = 7. Scale factor for difference between igraph and visnet edge sizes.}
 }
 \description{
-This function will build a visnetwork object
+This function will build a visnetwork object from and igraph object
 }
 \details{
 #

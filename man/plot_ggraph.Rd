@@ -2,16 +2,26 @@
 % Please edit documentation in R/plot_ggraph.R
 \name{plot_ggraph}
 \alias{plot_ggraph}
-\title{build_network}
+\title{plot_ggraph}
 \usage{
-plot_ggraph(input, color, width, col_lab = NULL, width_lab = NULL,
-  scale = "diverge", extract = T)
+plot_ggraph(input_igraph, color, width, col_lab = NULL,
+  width_lab = NULL, scale = "diverge", extract = T)
 }
 \arguments{
-\item{input}{the input dataframe}
+\item{input_igraph}{the igraph object}
+
+\item{color}{color of edges}
+
+\item{width}{width of edges}
+
+\item{col_lab}{label of color legend}
+
+\item{width_lab}{label of width legend}
+
+\item{scale}{"continuous" or "diverge"}
 }
 \description{
-This function will build a igraph network from a dataframe and calculate the layout.
+This function will plot a ggraph object from an igraph object
 }
 \details{
 #
