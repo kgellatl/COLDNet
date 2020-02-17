@@ -24,16 +24,16 @@ build_vis_subnetwork <- function(input_igraph, return_dataTable = T) {
 
   if(return_dataTable){
     ui <- fluidPage(
-      fluidRow(column(width = 4, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
-               column(width = 6, "Gene Matches", verbatimTextOutput("search_opts")),
+      fluidRow(column(width = 3, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
+               column(width = 7, "Gene Matches", verbatimTextOutput("search_opts")),
                column(width = 2, sliderInput("degree_opt", "Node Degree", 1, 2, 1, 1))),
       fluidRow(visNetworkOutput("sub_net"), style = "height:500px"),
       fluidRow(dataTableOutput("data_table"))
     )
   } else {
     ui <- fluidPage(
-      fluidRow(column(width = 4, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
-               column(width = 6, "Gene Matches", verbatimTextOutput("search_opts")),
+      fluidRow(column(width = 3, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
+               column(width = 7, "Gene Matches", verbatimTextOutput("search_opts")),
                column(width = 2, sliderInput("degree_opt", "Node Degree", 1, 2, 1, 1))),
       fluidRow(visNetworkOutput("sub_net"), style = "height:500px")
       )
@@ -67,8 +67,8 @@ build_vis_subnetwork <- function(input_igraph, return_dataTable = T) {
 
       gene_search <- input$gene_search
         return_gene <- grep(paste0("^", gene_search), nodes$id, value = T)
-        if(length(return_gene) > 5){
-          return_gene <- return_gene[1:5]
+        if(length(return_gene) > 10){
+          return_gene <- return_gene[1:10]
         }
         if(length(return_gene) == 0){
           output$search_opts <- renderText("Gene Not Found")
