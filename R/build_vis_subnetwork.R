@@ -9,7 +9,7 @@
 #' @examples
 #'
 
-build_vis_subnetwork <- function(input_igraph) {
+build_vis_subnetwork <- function(input_igraph, return_dataTable = T) {
   #######################################################
 
   fun1_return <- make_visnet(input_igraph)
@@ -22,12 +22,22 @@ build_vis_subnetwork <- function(input_igraph) {
 
   #######################################################
 
-  ui <- fluidPage(
-    fluidRow(column(width = 6, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
-             column(width = 6, sliderInput("degree_opt", "Node Degree", 1, 3, 1))),
-    fluidRow(visNetworkOutput("sub_net"), style = "height:500px"),
-    fluidRow(dataTableOutput("data_table"))
+  if(return_dataTable){
+    ui <- fluidPage(
+      fluidRow(column(width = 4, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
+               column(width = 6, "Gene Matches", verbatimTextOutput("search_opts")),
+               column(width = 2, sliderInput("degree_opt", "Node Degree", 1, 3, 1))),
+      fluidRow(visNetworkOutput("sub_net"), style = "height:500px"),
+      fluidRow(dataTableOutput("data_table"))
     )
+  } else {
+    ui <- fluidPage(
+      fluidRow(column(width = 4, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
+               column(width = 6, "Gene Matches", verbatimTextOutput("search_opts")),
+               column(width = 2, sliderInput("degree_opt", "Node Degree", 1, 3, 1))),
+      fluidRow(visNetworkOutput("sub_net"), style = "height:500px")
+      )
+  }
 
   #######################################################
 
@@ -44,8 +54,8 @@ build_vis_subnetwork <- function(input_igraph) {
         new_nodes$label <-  new_nodes$id
         vis_obj2 <- visNetwork(new_nodes, new_edges)
         return_plot <- vis_obj2
-#         ind <- match(new_nodes$id, names(V(input_igraph)))
-#         l <- l_full[ind,]
+        #         ind <- match(new_nodes$id, names(V(input_igraph)))
+        #         l <- l_full[ind,]
         if(!is.null(return_plot)){
           output$sub_net <- renderVisNetwork({return_plot %>%
               visOptions(height = "500px") %>%
@@ -54,6 +64,17 @@ build_vis_subnetwork <- function(input_igraph) {
           output$data_table <- renderDataTable(new_edges)
         }
       }
+
+      gene_search <- input$gene_search
+        return_gene <- grep(paste0("^", gene_search), nodes$id, value = T)
+        if(length(return_gene) > 5){
+          return_gene <- return_gene[1:5]
+        }
+        if(length(return_gene) == 0){
+          output$search_opts <- renderText("Gene Not Found")
+        } else {
+          output$search_opts <- renderText(return_gene)
+        }
     })
   }
 
