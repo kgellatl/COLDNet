@@ -60,6 +60,8 @@ build_visnetwork(input_igraph = test_net)
 ### FAST, only the nodes of interest are rendered. 
 build_vis_subnetwork(input_igraph = test_net)
 
+build_vis_subnetwork(input_igraph = test_net, return_dataTable = F)
+
 ## Changes!
 # Zoom in functionality
 # Fix data loading issue??
