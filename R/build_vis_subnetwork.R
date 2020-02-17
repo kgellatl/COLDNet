@@ -9,7 +9,7 @@
 #' @examples
 #'
 
-build_vis_subnetwork <- function(input_igraph, return_dataTable = T) {
+build_vis_subnetwork <- function(input_igraph, return_dataTable = T, trim_edges = F) {
   #######################################################
 
   fun1_return <- make_visnet(input_igraph)
@@ -23,35 +23,90 @@ build_vis_subnetwork <- function(input_igraph, return_dataTable = T) {
   #######################################################
 
   if(return_dataTable){
-    ui <- fluidPage(
-      fluidRow(column(width = 3, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
-               column(width = 7, "Gene Matches", verbatimTextOutput("search_opts")),
-               column(width = 2, sliderInput("degree_opt", "Node Degree", 1, 2, 1, 1))),
-      fluidRow(visNetworkOutput("sub_net"), style = "height:500px"),
-      fluidRow(dataTableOutput("data_table"))
-    )
-  } else {
-    ui <- fluidPage(
-      fluidRow(column(width = 3, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
-               column(width = 7, "Gene Matches", verbatimTextOutput("search_opts")),
-               column(width = 2, sliderInput("degree_opt", "Node Degree", 1, 2, 1, 1))),
-      fluidRow(visNetworkOutput("sub_net"), style = "height:500px")
+
+    if(trim_edges){
+
+      ui <- fluidPage(
+        fluidRow(column(width = 3, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
+                 column(width = 7, "Gene Matches", verbatimTextOutput("search_opts"))),
+        fluidRow(visNetworkOutput("sub_net"), style = "height:500px"),
+        fluidRow(dataTableOutput("data_table"))
       )
+
+
+    } else {
+      ui <- fluidPage(
+        fluidRow(column(width = 3, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
+                 column(width = 7, "Gene Matches", verbatimTextOutput("search_opts")),
+                 column(width = 2, sliderInput("degree_opt", "Node Degree", 1, 2, 1, 1))),
+        fluidRow(visNetworkOutput("sub_net"), style = "height:500px"),
+        fluidRow(dataTableOutput("data_table"))
+      )
+    }
+
+
+
+
+  } else {
+
+    if(trim_edges){
+
+
+      ui <- fluidPage(
+        fluidRow(column(width = 3, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
+                 column(width = 7, "Gene Matches", verbatimTextOutput("search_opts"))),
+        fluidRow(visNetworkOutput("sub_net"), style = "height:500px")
+      )
+
+
+    } else {
+      ui <- fluidPage(
+        fluidRow(column(width = 3, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
+                 column(width = 7, "Gene Matches", verbatimTextOutput("search_opts")),
+                 column(width = 2, sliderInput("degree_opt", "Node Degree", 1, 2, 1, 1))),
+        fluidRow(visNetworkOutput("sub_net"), style = "height:500px")
+      )
+    }
+
+
+
   }
 
   #######################################################
-
   server <- function(input, output) {
     observe({
       if(input$gene_search %in% nodes$id){
-        degree_sel <- input$degree_opt
+
+        if(trim_edges){
+          degree_sel <- 1
+        } else {
+          degree_sel <- input$degree_opt
+        }
         gene_search <- input$gene_search
+
+        # degree_sel <- 1
+        # gene_search <- "EBP"
+
         keep_edges <- as_data_frame(make_ego_graph(input_igraph, order = degree_sel, nodes = gene_search)[[1]])
-        new_edges <- keep_edges
+
+        if(trim_edges){
+          keep_from <- keep_edges$from %in% gene_search
+          keep_from <- which(keep_from == T)
+          keep_to <- keep_edges$to %in% gene_search
+          keep_to <- which(keep_to == T)
+          new_edges <- keep_edges[c(keep_from, keep_to),]
+        } else {
+          new_edges <- keep_edges
+        }
+
         new_nodes <- unique(c(new_edges$from, new_edges$to))
         new_nodes <- as.data.frame(new_nodes)
         new_nodes$id <- new_nodes$new_nodes
         new_nodes$label <-  new_nodes$id
+
+        new_nodes$color <- "#7fc97f"
+        new_nodes$color[match(gene_search, new_nodes$id)] <- "#fdc086"
+
         vis_obj2 <- visNetwork(new_nodes, new_edges)
         return_plot <- vis_obj2
         #         ind <- match(new_nodes$id, names(V(input_igraph)))
@@ -66,15 +121,15 @@ build_vis_subnetwork <- function(input_igraph, return_dataTable = T) {
       }
 
       gene_search <- input$gene_search
-        return_gene <- grep(paste0("^", gene_search), nodes$id, value = T)
-        if(length(return_gene) > 10){
-          return_gene <- return_gene[1:10]
-        }
-        if(length(return_gene) == 0){
-          output$search_opts <- renderText("Gene Not Found")
-        } else {
-          output$search_opts <- renderText(return_gene)
-        }
+      return_gene <- grep(paste0("^", gene_search), nodes$id, value = T)
+      if(length(return_gene) > 10){
+        return_gene <- return_gene[1:10]
+      }
+      if(length(return_gene) == 0){
+        output$search_opts <- renderText("Gene Not Found")
+      } else {
+        output$search_opts <- renderText(return_gene)
+      }
     })
   }
 

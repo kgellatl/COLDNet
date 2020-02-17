@@ -62,6 +62,8 @@ build_vis_subnetwork(input_igraph = test_net)
 
 build_vis_subnetwork(input_igraph = test_net, return_dataTable = F)
 
+build_vis_subnetwork(input_igraph = test_net, trim_edges = T, return_dataTable = F)
+
 ## Changes!
 # Zoom in functionality
 # Fix data loading issue??
