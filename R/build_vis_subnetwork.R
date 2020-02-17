@@ -26,7 +26,7 @@ build_vis_subnetwork <- function(input_igraph, return_dataTable = T) {
     ui <- fluidPage(
       fluidRow(column(width = 4, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
                column(width = 6, "Gene Matches", verbatimTextOutput("search_opts")),
-               column(width = 2, sliderInput("degree_opt", "Node Degree", 1, 2, 1))),
+               column(width = 2, sliderInput("degree_opt", "Node Degree", 1, 2, 1, 1))),
       fluidRow(visNetworkOutput("sub_net"), style = "height:500px"),
       fluidRow(dataTableOutput("data_table"))
     )
@@ -34,7 +34,7 @@ build_vis_subnetwork <- function(input_igraph, return_dataTable = T) {
     ui <- fluidPage(
       fluidRow(column(width = 4, textInput("gene_search", "Query Gene", nodes$id[1]), style = "height:75px"),
                column(width = 6, "Gene Matches", verbatimTextOutput("search_opts")),
-               column(width = 2, sliderInput("degree_opt", "Node Degree", 1, 2, 1))),
+               column(width = 2, sliderInput("degree_opt", "Node Degree", 1, 2, 1, 1))),
       fluidRow(visNetworkOutput("sub_net"), style = "height:500px")
       )
   }
