@@ -16,5 +16,5 @@ This function will build a visnetwork object from and igraph object.
 #
 }
 \examples{
-
+build_visnetwork(input_igraph = test_net)
 }

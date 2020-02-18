@@ -15,8 +15,8 @@ make_visnet(input_igraph, edge_scale = 7)
 This function will build a visnetwork object from and igraph object
 }
 \details{
-#
+Returns 3 objects in a list, [[1]] the visnetwork object, [[2]] the edges, [[3]] the nodes.
 }
 \examples{
-
+fun1_return <- make_visnet(input_igraph)
 }

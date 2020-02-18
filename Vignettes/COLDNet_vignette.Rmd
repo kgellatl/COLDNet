@@ -68,4 +68,5 @@ build_vis_subnetwork(input_igraph = test_net, trim_edges = T, return_dataTable =
 # Zoom in functionality
 # Fix data loading issue??
 # Function to change color and width in shiny! run plot_ggraph and have it make new color_column each time
+# Get data button
 ```

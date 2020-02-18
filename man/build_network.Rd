@@ -16,5 +16,5 @@ This function will build a igraph network from a dataframe and calculate the lay
 #
 }
 \examples{
-
+test_net <- build_network(input = test_net_dat)
 }

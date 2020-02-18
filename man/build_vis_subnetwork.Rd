@@ -4,10 +4,15 @@
 \alias{build_vis_subnetwork}
 \title{build_visnetwork}
 \usage{
-build_vis_subnetwork(input_igraph)
+build_vis_subnetwork(input_igraph, return_dataTable = T,
+  trim_edges = F)
 }
 \arguments{
 \item{input_igraph}{the igraph object}
+
+\item{return_dataTable}{Whether or not to display the datatable below the graph}
+
+\item{trim_edges}{If true, only edges that connnect to the query node will be displayed. Degree removed in this case.}
 }
 \description{
 This function will build a visnetwork object from and igraph object.
@@ -16,5 +21,5 @@ This function will build a visnetwork object from and igraph object.
 #
 }
 \examples{
-
+build_vis_subnetwork(input_igraph = test_net, return_dataTable = T, trim_edges = F)
 }

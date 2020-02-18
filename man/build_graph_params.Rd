@@ -10,9 +10,9 @@ build_graph_params(input_igraph, color, width, scale = "diverge",
 \arguments{
 \item{input_igraph}{the igraph object}
 
-\item{color}{color of edges}
+\item{color}{color of edges, a variable of your choosing}
 
-\item{width}{width of edges}
+\item{width}{width of edges, a variable of your choosing}
 
 \item{scale}{"continuous" or "diverge"}
 
@@ -25,5 +25,6 @@ This function will assign color and width values to your igraph network
 #
 }
 \examples{
+test_net <- build_graph_params(input_igraph =  test_net, color = "log_p", width = "abs_rho", scale = "continuous")
 
 }

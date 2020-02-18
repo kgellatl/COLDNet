@@ -7,7 +7,7 @@
 extract_ggraph(input_igraph, input_ggraph)
 }
 \arguments{
-\item{input_igraph}{the igraph object. ggraph parameters will be written in}
+\item{input_igraph}{the igraph object, into which the ggraph parameters will be written.}
 
 \item{input_ggraph}{the ggraph object.}
 }
@@ -18,5 +18,5 @@ This function will extract plotting parameters from the ggraph object
 #
 }
 \examples{
-
+input_igraph <- extract_ggraph(input_igraph, g)
 }

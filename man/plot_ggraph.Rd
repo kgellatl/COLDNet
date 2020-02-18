@@ -19,13 +19,15 @@ plot_ggraph(input_igraph, color, width, col_lab = NULL,
 \item{width_lab}{label of width legend}
 
 \item{scale}{"continuous" or "diverge"}
+
+\item{extract}{If true will write the ggraph parameters (color and width) to the igraph object.}
 }
 \description{
 This function will plot a ggraph object from an igraph object
 }
 \details{
-#
+
 }
 \examples{
-
+test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", extract = T)
 }
