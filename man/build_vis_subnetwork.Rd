@@ -23,5 +23,5 @@ This function will build a visnetwork object from and igraph object.
 #
 }
 \examples{
-build_vis_subnetwork(input_igraph = test_net, return_dataTable = T, trim_edges = F)
+build_vis_subnetwork(input_igraph = test_net, return_dataTable = T, trim_edges = F, pre_calc = T)
 }
