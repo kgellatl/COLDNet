@@ -5,13 +5,14 @@
 #' @param input_igraph the igraph object
 #' @param return_dataTable Whether or not to display the datatable below the graph
 #' @param trim_edges If true, only edges that connnect to the query node will be displayed. Degree removed in this case.
+#' @param pre_calc If true will use iGraph to precompute the 2d layout.
 #' @export
 #' @details
 #' #
 #' @examples
 #' build_vis_subnetwork(input_igraph = test_net, return_dataTable = T, trim_edges = F)
 
-build_vis_subnetwork <- function(input_igraph, return_dataTable = T, trim_edges = F) {
+build_vis_subnetwork <- function(input_igraph, return_dataTable = T, trim_edges = F, pre_calc = T) {
   #######################################################
 
   fun1_return <- make_visnet(input_igraph)
@@ -89,14 +90,14 @@ build_vis_subnetwork <- function(input_igraph, return_dataTable = T, trim_edges 
         #         ind <- match(new_nodes$id, names(V(input_igraph)))
         #         l <- l_full[ind,]
         if(!is.null(return_plot)){
-          if(trim_edges){
-            output$sub_net <- renderVisNetwork({return_plot %>%
-                visOptions(height = "500px")
-              })
-          } else {
+          if(pre_calc){
             output$sub_net <- renderVisNetwork({return_plot %>%
                 visOptions(height = "500px") %>%
                 visIgraphLayout("layout_nicely")
+            })
+          } else {
+            output$sub_net <- renderVisNetwork({return_plot %>%
+                visOptions(height = "500px")
             })
           }
           output$data_table <- renderDataTable(new_edges)
