@@ -14,8 +14,7 @@ Depends:
 	igraph,
 	visNetwork,
 	ggplot2,
-	ggraph,
 	shiny,
 	RColorBrewer
 Imports:
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
