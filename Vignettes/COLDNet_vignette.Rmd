@@ -13,26 +13,25 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, results='hide'}
 library(COLDNet)
-# shiny::runApp(system.file("shiny", package = "visNetwork"))
-test_net_dat <- COLDNet:::test_net
+test_net <- COLDNet:::test_net
 ```
 
 # Modify data to fit needs
 
 ```{r}
 # - log value for p value
-test_net_dat$abs_rho <- abs(test_net_dat$rho)
-test_net_dat$log_p <- -log10(test_net_dat$p_Bonferroni)
+test_net$abs_rho <- abs(test_net$rho)
+test_net$log_p <- -log10(test_net$p_Bonferroni)
 
 # required from and to columns!!!
-colnames(test_net_dat)[c(1,2)] <- c("from", "to")
+colnames(test_net)[c(1,2)] <- c("from", "to")
 ```
 
 # Build igraph + calculate layout
 
 ```{r}
 # Takes in a dataframe, uses igraph to make a network
-test_net <- build_network(input = test_net_dat)
+test_net <- build_network(input = test_net)
 ```
 
 # Calculate graph color / width
