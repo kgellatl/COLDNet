@@ -4,8 +4,12 @@
 \alias{build_vis_subnetwork}
 \title{build_visnetwork}
 \usage{
-build_vis_subnetwork(input_igraph, return_dataTable = T,
-  trim_edges = F, pre_calc = T)
+build_vis_subnetwork(
+  input_igraph,
+  return_dataTable = T,
+  trim_edges = F,
+  pre_calc = T
+)
 }
 \arguments{
 \item{input_igraph}{the igraph object}

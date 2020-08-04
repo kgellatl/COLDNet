@@ -4,8 +4,15 @@
 \alias{plot_ggraph}
 \title{plot_ggraph}
 \usage{
-plot_ggraph(input_igraph, color, width, col_lab = NULL,
-  width_lab = NULL, scale = "diverge", extract = T)
+plot_ggraph(
+  input_igraph,
+  color,
+  width,
+  col_lab = NULL,
+  width_lab = NULL,
+  scale = "diverge",
+  extract = T
+)
 }
 \arguments{
 \item{input_igraph}{the igraph object}

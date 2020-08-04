@@ -4,8 +4,7 @@
 \alias{build_graph_params}
 \title{plot_ggraph}
 \usage{
-build_graph_params(input_igraph, color, width, scale = "diverge",
-  pal = NULL)
+build_graph_params(input_igraph, color, width, scale = "diverge", pal = NULL)
 }
 \arguments{
 \item{input_igraph}{the igraph object}
