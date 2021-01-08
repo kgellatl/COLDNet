@@ -36,14 +36,30 @@ test_net <- build_network(input = test_net)
 # Calculate graph color / width
 
 ```{r}
-### SLOW, uses ggraph and creates a plot. Take a long time due to rendering.
-test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", extract = T)
+### FAST : Render = F, no graph plotted, but parameters written to object
+test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", render = F)
 
-### FAST, no plotting occurs, but the color and width values are calculated and written to igraph.
-# Example 1 plot
-test_net <- build_graph_params(input_igraph =  test_net, color = "log_p", width = "abs_rho", scale = "continuous")
-# Example 2 plot
-test_net <- build_graph_params(input_igraph =  test_net, color = "rho", width = "log_p", scale = "diverge")
+### SLOWER : Render = T, without labels
+test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", render = T, label = F)
+
+### SLOWEST : Render = T, with labels
+test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", render = T, label = T)
+
+### Label subset of nodes
+test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", render = T, label = T, label_nodes = names(V(test_net))[1:10])
+
+### Change color pallette
+test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", render = T, colpal = c("gray", "yellow"))
+
+### Subset graph for inset plotting
+
+KLHDC1_graph <- extract_node(test_net, "KLHDC1")
+plot_ggraph(input_igraph = KLHDC1_graph, color = "rho", width = "log_p", scale = "diverge", render = T, label = T)
+
+### New layout
+
+KLHDC1_graph <- extract_node(test_net, "KLHDC1", layout = T)
+plot_ggraph(input_igraph = KLHDC1_graph, color = "rho", width = "log_p", scale = "diverge", render = T, label = T)
 
 ```
 
