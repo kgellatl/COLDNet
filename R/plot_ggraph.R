@@ -8,14 +8,26 @@
 #' @param col_lab label of color legend
 #' @param width_lab label of width legend
 #' @param scale "continuous" or "diverge"
-#' @param extract If true will write the ggraph parameters (color and width) to the igraph object.
+#' @param render Whether or not a plot will be rendered
+#' @param colpal a vector of length 2 for colors
+#' @param label whether or not to label nodes
+#' @param label_nodes subset of nodes to label
 #' @export
 #' @details
 #'
 #' @examples
-#' test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", extract = T)
+#' test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge")
 
-plot_ggraph <- function(input_igraph, color, width, col_lab = NULL, width_lab = NULL, scale = "diverge", extract = T){
+plot_ggraph <- function(input_igraph,
+                        color,
+                        width,
+                        col_lab = NULL,
+                        width_lab = NULL,
+                        scale = "diverge",
+                        render = T,
+                        colpal = c("blue", "red"),
+                        label = F,
+                        label_nodes = NULL){
 
   if(is.null(col_lab)){
     col_lab <- color
@@ -32,20 +44,35 @@ plot_ggraph <- function(input_igraph, color, width, col_lab = NULL, width_lab = 
   g <-  g + geom_edge_link(aes(colour = edge_color, width = edge_weight))
   g <- g + geom_node_point()
   if(scale == "diverge"){
-    g <- g + scale_edge_colour_gradient2(name = col_lab)
+    g <- g + scale_edge_colour_gradient2(name = col_lab, low = colpal[1], high = colpal[2])
   }
   if(scale == "continuous"){
-    g <- g + scale_edge_colour_gradient(name = col_lab, low = "blue", high = "red")
+    g <- g + scale_edge_colour_gradient(name = col_lab, low = colpal[1], high = colpal[2])
   }
-  g <- g + scale_edge_width(name = width_lab, range = c(0.3,5))
-  g <- g + geom_node_text(label = names(V(input_igraph)), size = 2)
+  g <- g + scale_edge_width(name = width_lab, range = c(0.2,1))
+
+  if(label){
+    if(is.null(label_nodes)){
+      g <- g + geom_node_text(label = names(V(input_igraph)),
+                              size = 2)
+    } else {
+      vertices <- names(V(input_igraph))
+      ind <- match(label_nodes, vertices)
+      new_labels <- rep("", length(vertices))
+      new_labels[ind] <- label_nodes
+      g <- g + geom_node_text(label = new_labels,
+                              size = 2)
+    }
+  }
+
   g <- g + theme_void()
 
-  plot(g)
 
-  if(extract){
-    input_igraph <- extract_ggraph(input_igraph, g)
+  if(render){
+    plot(g)
   }
+
+  input_igraph <- extract_ggraph(input_igraph, g)
 
   return(input_igraph)
 

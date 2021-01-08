@@ -11,7 +11,10 @@ plot_ggraph(
   col_lab = NULL,
   width_lab = NULL,
   scale = "diverge",
-  extract = T
+  render = T,
+  colpal = c("blue", "red"),
+  label = F,
+  label_nodes = NULL
 )
 }
 \arguments{
@@ -27,7 +30,13 @@ plot_ggraph(
 
 \item{scale}{"continuous" or "diverge"}
 
-\item{extract}{If true will write the ggraph parameters (color and width) to the igraph object.}
+\item{render}{Whether or not a plot will be rendered}
+
+\item{colpal}{a vector of length 2 for colors}
+
+\item{label}{whether or not to label nodes}
+
+\item{label_nodes}{subset of nodes to label}
 }
 \description{
 This function will plot a ggraph object from an igraph object
@@ -36,5 +45,5 @@ This function will plot a ggraph object from an igraph object
 
 }
 \examples{
-test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", extract = T)
+test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge")
 }
