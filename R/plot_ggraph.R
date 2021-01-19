@@ -19,9 +19,9 @@
 #' test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge")
 
 plot_ggraph <- function(input_igraph,
-                        edge_color = ,
+                        edge_color = NULL,
                         edge_colpal = c("blue", "red"),
-                        edge_width = ,
+                        edge_width = NULL,
                         node_color = "black",
                         node_size = 1,
                         edge_col_lab = NULL,
@@ -57,10 +57,10 @@ plot_ggraph <- function(input_igraph,
   g <- g + geom_node_point(color = node_color, size = node_size)
 
   if(scale == "diverge"){
-    g <- g + scale_edge_colour_gradient2(name = edge_col_lab, low = colpal[1], high = colpal[2])
+    g <- g + scale_edge_colour_gradient2(name = edge_col_lab, low = edge_colpal[1], high = edge_colpal[2])
   }
   if(scale == "continuous"){
-    g <- g + scale_edge_colour_gradient(name = edge_col_lab, low = colpal[1], high = colpal[2])
+    g <- g + scale_edge_colour_gradient(name = edge_col_lab, low = edge_colpal[1], high = edge_colpal[2])
   }
   g <- g + scale_edge_width(name = edge_width_lab, range = c(0.2,1))
 
