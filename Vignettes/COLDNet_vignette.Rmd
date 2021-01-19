@@ -43,7 +43,7 @@ test_net <- plot_ggraph(input_igraph = test_net, render = F)
 test_net <- plot_ggraph(input_igraph = test_net, label = F, render = T)
 
 ### SLOWER : Render = T, without labels
-test_net <- plot_ggraph(input_igraph = test_net, edge_color = "rho", edge_width = "log_p", scale = "diverge",  render = T, label = F, node_color = "purple", node_size = 2)
+test_net <- plot_ggraph(input_igraph = test_net, edge_color = "rho", edge_width = "log_p", scale = "diverge",  render = T, label = F, node_color = "purple", node_size = 2, edge_size_range = c(1, 3))
 
 ### SLOWEST : Render = T, with labels
 test_net <- plot_ggraph(input_igraph = test_net, edge_color = "rho", edge_width = "log_p", scale = "diverge", render = T, label = T)

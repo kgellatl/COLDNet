@@ -22,6 +22,7 @@ plot_ggraph <- function(input_igraph,
                         edge_color = NULL,
                         edge_colpal = c("blue", "red"),
                         edge_width = NULL,
+                        edge_size_range = c(0.2,1),
                         node_color = "black",
                         node_size = 1,
                         edge_col_lab = NULL,
@@ -62,7 +63,7 @@ plot_ggraph <- function(input_igraph,
   if(scale == "continuous"){
     g <- g + scale_edge_colour_gradient(name = edge_col_lab, low = edge_colpal[1], high = edge_colpal[2])
   }
-  g <- g + scale_edge_width(name = edge_width_lab, range = c(0.2,1))
+  g <- g + scale_edge_width(name = edge_width_lab, range = c(edge_size_range[1], edge_size_range[2]))
 
   if(label){
     if(is.null(label_nodes)){
