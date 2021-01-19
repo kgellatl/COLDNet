@@ -19,37 +19,50 @@
 #' test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge")
 
 plot_ggraph <- function(input_igraph,
-                        color,
-                        width,
-                        col_lab = NULL,
-                        width_lab = NULL,
+                        edge_color = ,
+                        edge_colpal = c("blue", "red"),
+                        edge_width = ,
+                        node_color = "black",
+                        node_size = 1,
+                        edge_col_lab = NULL,
+                        edge_width_lab = NULL,
                         scale = "diverge",
                         render = T,
-                        colpal = c("blue", "red"),
                         label = F,
                         label_nodes = NULL){
 
-  if(is.null(col_lab)){
-    col_lab <- color
+  if(is.null(edge_col_lab)){
+    edge_col_lab <- edge_color
   }
-  if(is.null(width_lab)){
-    width_lab <- width
+  if(is.null(edge_width_lab)){
+    edge_width_lab <- edge_width
   }
 
-  E(input_igraph)$edge_color <- as_data_frame(input_igraph)[,color]
-  E(input_igraph)$edge_weight <- as_data_frame(input_igraph)[,width]
+  input_igraph <- test_net
+
   l <- matrix(c(V(input_igraph)$x_pos, V(input_igraph)$y_pos), ncol = 2)
 
+
+  if(!is.null(edge_color)){
+    E(input_igraph)$edge_color <- as_data_frame(input_igraph)[,edge_color]
+  }
+
+  if(!is.null(edge_width)){
+    E(input_igraph)$edge_width <- as_data_frame(input_igraph)[,edge_width]
+  }
+
   g <- ggraph(input_igraph, layout = l)
-  g <-  g + geom_edge_link(aes(colour = edge_color, width = edge_weight))
-  g <- g + geom_node_point()
+  g <-  g + geom_edge_link(aes(colour = edge_color, width = edge_width))
+
+  g <- g + geom_node_point(color = node_color, size = node_size)
+
   if(scale == "diverge"){
-    g <- g + scale_edge_colour_gradient2(name = col_lab, low = colpal[1], high = colpal[2])
+    g <- g + scale_edge_colour_gradient2(name = edge_col_lab, low = colpal[1], high = colpal[2])
   }
   if(scale == "continuous"){
-    g <- g + scale_edge_colour_gradient(name = col_lab, low = colpal[1], high = colpal[2])
+    g <- g + scale_edge_colour_gradient(name = edge_col_lab, low = colpal[1], high = colpal[2])
   }
-  g <- g + scale_edge_width(name = width_lab, range = c(0.2,1))
+  g <- g + scale_edge_width(name = edge_width_lab, range = c(0.2,1))
 
   if(label){
     if(is.null(label_nodes)){

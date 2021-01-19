@@ -37,29 +37,29 @@ test_net <- build_network(input = test_net)
 
 ```{r}
 ### FAST : Render = F, no graph plotted, but parameters written to object
-test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", render = F)
+test_net <- plot_ggraph(input_igraph = test_net, edge_color = "rho", edge_width = "log_p", scale = "diverge", render = F)
 
 ### SLOWER : Render = T, without labels
-test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", render = T, label = F)
+test_net <- plot_ggraph(input_igraph = test_net, edge_color = "rho", edge_width = "log_p", scale = "diverge", render = T, label = F)
 
 ### SLOWEST : Render = T, with labels
-test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", render = T, label = T)
+test_net <- plot_ggraph(input_igraph = test_net, edge_color = "rho", edge_width = "log_p", scale = "diverge", render = T, label = T)
 
 ### Label subset of nodes
-test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", render = T, label = T, label_nodes = names(V(test_net))[1:10])
+test_net <- plot_ggraph(input_igraph = test_net, edge_color = "rho", edge_width = "log_p", scale = "diverge", render = T, label = T, label_nodes = names(V(test_net))[1:10])
 
 ### Change color pallette
-test_net <- plot_ggraph(input_igraph = test_net, color = "rho", width = "log_p", scale = "diverge", render = T, colpal = c("gray", "yellow"))
+test_net <- plot_ggraph(input_igraph = test_net, edge_color = "rho", edge_width = "log_p", scale = "diverge", render = T, edge_colpal = c("gray", "yellow"))
 
 ### Subset graph for inset plotting
 
 KLHDC1_graph <- extract_node(test_net, "KLHDC1")
-plot_ggraph(input_igraph = KLHDC1_graph, color = "rho", width = "log_p", scale = "diverge", render = T, label = T)
+plot_ggraph(input_igraph = KLHDC1_graph, edge_color = "rho", edge_width = "log_p", scale = "diverge", render = T, label = T)
 
 ### New layout
 
 KLHDC1_graph <- extract_node(test_net, "KLHDC1", layout = T)
-plot_ggraph(input_igraph = KLHDC1_graph, color = "rho", width = "log_p", scale = "diverge", render = T, label = T)
+plot_ggraph(input_igraph = KLHDC1_graph, edge_color = "rho", edge_width = "log_p", scale = "diverge", render = T, label = T)
 
 ```
 
